@@ -1,0 +1,216 @@
+{
+  "info": {
+    "_postman_id": "e3d5c0c7-2ae1-43cd-8483-5c612b337d35",
+    "name": "test-cases",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "1453931"
+  },
+  "item": [
+    {
+      "name": "get-account",
+      "item": [
+        {
+          "name": "Error=500",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Status code is 500\", function () {",
+                  "    pm.response.to.have.status(500);",
+                  "});",
+                  "",
+                  "pm.test(\"Response matches JSON schema\", function () {",
+                  "    const schema = {",
+                  "        \"type\": \"object\",",
+                  "        \"required\": [\"message\"],",
+                  "        \"properties\": {",
+                  "            \"message\": { \"type\": \"string\" }",
+                  "        }",
+                  "    };",
+                  "    pm.response.to.have.jsonSchema(schema);",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "https://d8a4654e-998f-4a0d-9f86-bca6374aa0f1.mock.pstmn.io/v1/accounts/4",
+              "protocol": "https",
+              "host": [
+                "d8a4654e-998f-4a0d-9f86-bca6374aa0f1",
+                "mock",
+                "pstmn",
+                "io"
+              ],
+              "path": [
+                "v1",
+                "accounts",
+                "4"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Success",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status code is 200\", function () {",
+                  "    pm.response.to.have.status(200);",
+                  "});",
+                  "",
+                  "pm.test(\"Response matches JSON schema\", function () {",
+                  "    const schema = {",
+                  "        \"type\": \"object\",",
+                  "        \"required\": [\"id\", \"object\", \"applied_configurations\", \"configuration\", \"contact_email\", \"created\", \"dashboard\", \"identity\", \"defaults\", \"display_name\", \"livemode\", \"metadata\"],",
+                  "        \"properties\": {",
+                  "            \"id\": { \"type\": \"string\" },",
+                  "            \"object\": { \"type\": \"string\" },",
+                  "            \"applied_configurations\": {",
+                  "                \"type\": \"array\",",
+                  "                \"items\": { \"type\": \"string\" }",
+                  "            },",
+                  "            \"configuration\": {",
+                  "                \"type\": \"object\",",
+                  "                \"properties\": {",
+                  "                    \"merchant\": {",
+                  "                        \"type\": \"object\",",
+                  "                        \"properties\": {",
+                  "                            \"applied\": { \"type\": \"string\" },",
+                  "                            \"card_payments\": {",
+                  "                                \"type\": \"object\",",
+                  "                                \"properties\": {",
+                  "                                    \"decline_on\": {",
+                  "                                        \"type\": \"object\",",
+                  "                                        \"properties\": {",
+                  "                                            \"avs_failure\": { \"type\": \"boolean\" },",
+                  "                                            \"cvc_failure\": { \"type\": \"boolean\" }",
+                  "                                        }",
+                  "                                    }",
+                  "                                }",
+                  "                            },",
+                  "                            \"capabilities\": { \"type\": \"object\" },",
+                  "                            \"statement_descriptor\": {",
+                  "                                \"type\": \"object\",",
+                  "                                \"properties\": {",
+                  "                                    \"descriptor\": { \"type\": \"string\" }",
+                  "                                }",
+                  "                            }",
+                  "                        }",
+                  "                    }",
+                  "                }",
+                  "            },",
+                  "            \"contact_email\": { \"type\": \"string\" },",
+                  "            \"created\": { \"type\": \"string\" },",
+                  "            \"dashboard\": { \"type\": \"string\" },",
+                  "            \"identity\": {",
+                  "                \"type\": \"object\",",
+                  "                \"properties\": {",
+                  "                    \"business_details\": { \"type\": \"object\" },",
+                  "                    \"country\": { \"type\": \"string\" },",
+                  "                    \"entity_type\": { \"type\": \"string\" }",
+                  "                }",
+                  "            },",
+                  "            \"defaults\": {",
+                  "                \"type\": \"object\",",
+                  "                \"properties\": {",
+                  "                    \"currency\": { \"type\": \"string\" },",
+                  "                    \"locales\": { \"type\": \"array\" },",
+                  "                    \"profile\": { \"type\": \"object\" },",
+                  "                    \"responsibilities\": { \"type\": \"object\" }",
+                  "                }",
+                  "            },",
+                  "            \"display_name\": { \"type\": \"string\" },",
+                  "            \"livemode\": { \"type\": \"boolean\" },",
+                  "            \"metadata\": { \"type\": \"object\" }",
+                  "        }",
+                  "    };",
+                  "    pm.response.to.have.jsonSchema(schema);",
+                  "});"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "https://d8a4654e-998f-4a0d-9f86-bca6374aa0f1.mock.pstmn.io/v1/accounts/1",
+              "protocol": "https",
+              "host": [
+                "d8a4654e-998f-4a0d-9f86-bca6374aa0f1",
+                "mock",
+                "pstmn",
+                "io"
+              ],
+              "path": [
+                "v1",
+                "accounts",
+                "1"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Error=404",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Status code is 404\", function () {",
+                  "    pm.response.to.have.status(404);",
+                  "});",
+                  "",
+                  "pm.test(\"Response matches JSON schema\", function () {",
+                  "    const schema = {",
+                  "        \"type\": \"object\",",
+                  "        \"required\": [\"message\"],",
+                  "        \"properties\": {",
+                  "            \"message\": { \"type\": \"string\" }",
+                  "        }",
+                  "    };",
+                  "    pm.response.to.have.jsonSchema(schema);",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "https://d8a4654e-998f-4a0d-9f86-bca6374aa0f1.mock.pstmn.io/v1/accounts/2",
+              "protocol": "https",
+              "host": [
+                "d8a4654e-998f-4a0d-9f86-bca6374aa0f1",
+                "mock",
+                "pstmn",
+                "io"
+              ],
+              "path": [
+                "v1",
+                "accounts",
+                "2"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    }
+  ]
+}
