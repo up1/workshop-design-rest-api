@@ -29,3 +29,7 @@ export default function () {
     'status is OK': (r) => r && r.status === grpc.StatusOK,
   });
 }
+
+export function teardown() {
+  client.close();
+}
