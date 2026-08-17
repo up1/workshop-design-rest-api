@@ -7,7 +7,7 @@ public class MyAccountService(ILogger<MyAccountService> logger) : Account.Accoun
     // Overrided method from Account.AccountBase
     public override Task<GetAccountResponse> GetAccount(GetAccountRequest request, ServerCallContext context)
     {
-        logger.LogInformation("GetAccount called with id {Id}", request.Id);
+        // logger.LogInformation("GetAccount called with id {Id}", request.Id);
 
         var response = new GetAccountResponse
         {

@@ -1,6 +1,14 @@
 using AccountService.Services;
+using Microsoft.AspNetCore.Server.Kestrel.Core;
 
 var builder = WebApplication.CreateBuilder(args);
+
+// Configure Kestrel for high-performance HTTP/2 local benchmarking
+builder.WebHost.ConfigureKestrel(options =>
+{
+    // Listen for gRPC on port 5001 explicitly using HTTP/2 without TLS
+    options.ListenLocalhost(5001, o => o.Protocols = HttpProtocols.Http2);
+});
 
 // Add services to the container.
 builder.Services.AddGrpc();
