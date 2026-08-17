@@ -94,8 +94,8 @@ $dotnet run
 
 Testing
 ```
-$grpcurl -plaintext localhost:5278 list
-$grpcurl -d '{"id":123}' -plaintext localhost:5278 account.Account/GetAccount
+$grpcurl -plaintext localhost:5001 list
+$grpcurl -d '{"id":123}' -plaintext localhost:5001 account.Account/GetAccount
 ```
 
 ## Implement gRPC client in `Program.cs`
@@ -103,7 +103,7 @@ $grpcurl -d '{"id":123}' -plaintext localhost:5278 account.Account/GetAccount
 using AccountService;
 using Grpc.Net.Client;
 
-using var channel = GrpcChannel.ForAddress("http://localhost:5278");
+using var channel = GrpcChannel.ForAddress("http://localhost:5001");
 var client = new Account.AccountClient(channel);
 
 var id = args.Length > 0 && int.TryParse(args[0], out var parsedId) ? parsedId : 1;
