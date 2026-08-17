@@ -18,3 +18,73 @@ $dotnet sln GrpcSolution.slnx add AccountService/AccountService.csproj
 $dotnet new console -n AccountClient
 $dotnet sln GrpcSolution.slnx add AccountClient/AccountClient.csproj
 ```
+
+## Generate code from proto file
+```
+$dotnet build 
+```
+Output in folder `obj/`
+
+## Create `MyAccountService.cs` to implement gRPC service
+```
+using Grpc.Core;
+
+namespace AccountService.Services;
+
+public class MyAccountService(ILogger<MyAccountService> logger) : Account.AccountBase
+{
+    // Overrided method from Account.AccountBase
+    public override Task<GetAccountResponse> GetAccount(GetAccountRequest request, ServerCallContext context)
+    {
+        logger.LogInformation("GetAccount called with id {Id}", request.Id);
+
+        var response = new GetAccountResponse
+        {
+            Id = request.Id,
+            Name = "John Doe",
+            Email = "john.doe@example.com",
+            Address = "123 Main St"
+        };
+
+        return Task.FromResult(response);
+    }
+}
+```
+
+Register service in `Program.cs`
+```
+using AccountService.Services;
+
+var builder = WebApplication.CreateBuilder(args);
+
+// Add services to the container.
+builder.Services.AddGrpc();
+builder.Services.AddGrpcReflection();
+
+var app = builder.Build();
+
+// Configure the HTTP request pipeline.
+app.MapGrpcService<GreeterService>();
+app.MapGrpcService<MyAccountService>();
+if (app.Environment.IsDevelopment())
+{
+    app.MapGrpcReflectionService();
+}
+app.MapGet("/", () => "Communication with gRPC endpoints must be made through a gRPC client. To learn how to create a client, visit: https://go.microsoft.com/fwlink/?linkid=2086909");
+
+app.Run();
+
+```
+
+## Build project and Testing
+```
+$dotnet clean
+$dotnet build
+$dotnet run
+```
+
+Testing
+```
+$grpcurl -plaintext localhost:5278 list
+$grpcurl -d '{"id":123}' -plaintext localhost:5278 account.Account/GetAccount
+```

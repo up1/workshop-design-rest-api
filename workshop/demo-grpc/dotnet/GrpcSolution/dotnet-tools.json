@@ -1,0 +1,13 @@
+{
+  "version": 1,
+  "isRoot": true,
+  "tools": {
+    "protobuf-net.protogen": {
+      "version": "3.3.21",
+      "commands": [
+        "protogen"
+      ],
+      "rollForward": false
+    }
+  }
+}
