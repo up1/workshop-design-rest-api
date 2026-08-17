@@ -1,0 +1,216 @@
+openapi: 3.0.0
+info:
+  title: design-api
+  version: 1.0.0
+  description: ''
+servers:
+  - url: http://localhost:8080
+paths:
+  /v1/accounts/1:
+    get:
+      summary: Get account detail
+      responses:
+        '200':
+          description: success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: string
+                    format: utc-millisec
+                  object:
+                    type: string
+                  applied_configurations:
+                    type: array
+                    items:
+                      type: string
+                  configuration:
+                    type: object
+                    properties:
+                      merchant:
+                        type: object
+                        properties:
+                          applied:
+                            type: string
+                            format: date-time
+                          card_payments:
+                            type: object
+                            properties:
+                              decline_on:
+                                type: object
+                                properties:
+                                  avs_failure:
+                                    type: boolean
+                                  cvc_failure:
+                                    type: boolean
+                          capabilities:
+                            type: object
+                            properties:
+                              card_payments:
+                                type: object
+                                properties:
+                                  status:
+                                    type: string
+                                  status_details:
+                                    type: array
+                                    items:
+                                      type: object
+                                      properties:
+                                        code:
+                                          type: string
+                                        resolution:
+                                          type: string
+                          statement_descriptor:
+                            type: object
+                            properties:
+                              descriptor:
+                                type: string
+                  contact_email:
+                    type: string
+                    format: email
+                  created:
+                    type: string
+                    format: date-time
+                  dashboard:
+                    type: string
+                  identity:
+                    type: object
+                    properties:
+                      business_details:
+                        type: object
+                        properties:
+                          address:
+                            type: object
+                            properties:
+                              country:
+                                type: string
+                          id_numbers:
+                            type: array
+                            items:
+                              type: object
+                              properties:
+                                type:
+                                  type: string
+                          structure:
+                            type: string
+                      country:
+                        type: string
+                      entity_type:
+                        type: string
+                  defaults:
+                    type: object
+                    properties:
+                      currency:
+                        type: string
+                      locales:
+                        type: array
+                        items: {}
+                      profile:
+                        type: object
+                        properties:
+                          business_url:
+                            type: string
+                            format: uri
+                          doing_business_as:
+                            type: string
+                          product_description:
+                            type: string
+                      responsibilities:
+                        type: object
+                        properties:
+                          fees_collector:
+                            type: string
+                          losses_collector:
+                            type: string
+                          requirements_collector:
+                            type: string
+                  display_name:
+                    type: string
+                  livemode:
+                    type: boolean
+                  metadata:
+                    type: object
+              example:
+                id: '1'
+                object: v2.core.account
+                applied_configurations:
+                  - customer
+                  - merchant
+                configuration:
+                  merchant:
+                    applied: '2024-11-26T16:33:03.000Z'
+                    card_payments:
+                      decline_on:
+                        avs_failure: false
+                        cvc_failure: false
+                    capabilities:
+                      card_payments:
+                        status: restricted
+                        status_details:
+                          - code: requirements_past_due
+                            resolution: provide_info
+                    statement_descriptor:
+                      descriptor: accessible.stripe.com
+                contact_email: furever@example.com
+                created: '2024-11-26T16:33:03.000Z'
+                dashboard: full
+                identity:
+                  business_details:
+                    address:
+                      country: us
+                    id_numbers:
+                      - type: us_ein
+                    structure: sole_proprietorship
+                  country: us
+                  entity_type: company
+                defaults:
+                  currency: usd
+                  locales: []
+                  profile:
+                    business_url: http://accessible.stripe.com
+                    doing_business_as: FurEver
+                    product_description: >-
+                      Saas pet grooming platform at furever.dev using Connect
+                      embedded components
+                  responsibilities:
+                    fees_collector: stripe
+                    losses_collector: stripe
+                    requirements_collector: stripe
+                display_name: Furever
+                livemode: true
+                metadata: {}
+        '400':
+          description: bad-request
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+              example:
+                message: Invalid input
+        '404':
+          description: account-not-found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+              example:
+                message: Account not found in system
+        '500':
+          description: system-error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+              example:
+                message: System error!!
