@@ -141,7 +141,7 @@ export default function () {
 
 ```
 $ulimit -n
-$k6 run grpc-test.js
+$CONNS_PER_VU=8 VUS=400 k6 run grpc-test.js
 ```
 
 File grpc-test.js

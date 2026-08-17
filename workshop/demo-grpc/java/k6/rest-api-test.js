@@ -2,7 +2,7 @@ import http from 'k6/http';
 import { check } from 'k6';
 // Workload configuration
 const options = {
-  vus: 200,
+  vus: 400,
   duration: '30s',
 };
 
