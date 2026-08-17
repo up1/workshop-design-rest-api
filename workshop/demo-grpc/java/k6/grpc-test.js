@@ -3,22 +3,30 @@ import { check, sleep } from 'k6';
 
 // Workload configuration
 export const options = {
-  vus: 100,
+  vus: 200,
   duration: '30s',
 };
 
 const client = new grpc.Client();
 client.load(['proto'], 'accounts.proto');
 
+let connected = false; // module state persists per VU across iterations
+
 export default function () {
-  // connect once per VU to avoid exhausting ephemeral ports each iteration
-  if (__ITER === 0) {
+  if (!connected) {
     client.connect('localhost:9090', { plaintext: true });
+    connected = true;
   }
-  const response = client.invoke('com.example.accountgrpc.account.AccountService/GetAccount', { id: 123 });
+  // discardResponseMessage skips deserializing the response into a JS object,
+  // avoiding k6 client-side marshalling overhead that would otherwise skew the benchmark
+  const response = client.invoke('com.example.accountgrpc.account.AccountService/GetAccount', { id: 123 }, {
+    discardResponseMessage: true,
+  });
   check(response, {
     'status is OK': (r) => r && r.status === grpc.StatusOK,
-    'response has id': (r) => r && r.message && r.message.id === 123,
   });
-  sleep(1);
+}
+
+export function teardown(data) {
+  client.close();
 }
