@@ -1,0 +1,4 @@
+<Solution>
+  <Project Path="AccountClient/AccountClient.csproj" />
+  <Project Path="AccountService/AccountService.csproj" />
+</Solution>
