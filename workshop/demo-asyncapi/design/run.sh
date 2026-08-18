@@ -1,0 +1,1 @@
+asyncapi generate fromTemplate asyncapi.yaml @asyncapi/dotnet-rabbitmq-template -o GeneratedProject
