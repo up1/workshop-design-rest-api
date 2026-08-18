@@ -54,5 +54,41 @@ $brew install asyncapi
 
 Generate code from the AsyncAPI specification
 ```
-$asyncapi generate fromTemplate asyncapi.yaml @asyncapi/dotnet-rabbitmq-template -o GeneratedProject
+$asyncapi validate asyncapi.yaml
+
+$asyncapi generate fromTemplate asyncapi.yaml @asyncapi/dotnet-rabbitmq-template -o Demo --force-write --debug
+```
+
+## Generated code with AI Agent
+```
+Try to generate event/message POCO class to @attachment:Messaging.Shared that read config from file @sym:asyncapi
+
+
+Try to generate Producer class to @attachment:Order.Producer that read config from file @sym:asyncapi
+
+
+Try to generate Consumer class to @attachment:Order.Consumer that read config from file @sym:asyncapi
+
+
+```
+
+## Start Producer and Consumer
+Start rabiitmq server with docker
+```
+$docker run -d  -p 5672:5672 -p 15672:15672 rabbitmq:3-management 
+$docker container ps
+```
+Go to http://localhost:15672/ and login with guest/guest
+
+
+Start producer
+```
+$cd Order.Producer
+$RABBITMQ_HOST=localhost dotnet run
+```
+
+Start consumer
+```
+$cd Order.Consumer
+$RABBITMQ_HOST=localhost dotnet run
 ```
