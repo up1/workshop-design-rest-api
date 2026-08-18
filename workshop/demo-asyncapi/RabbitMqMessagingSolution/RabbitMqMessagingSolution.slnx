@@ -1,0 +1,5 @@
+<Solution>
+  <Project Path="Messaging.Shared/Messaging.Shared.csproj" />
+  <Project Path="Order.Consumer/Order.Consumer.csproj" />
+  <Project Path="Order.Producer/Order.Producer.csproj" />
+</Solution>
